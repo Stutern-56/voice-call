@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-export default function ImageHolder({src, alt="image", sizing={width:0, height:0}, filling=false}) {
+export default function ImageHolder({src, alt="image", sizing={width:0, height:0}, filling=false, className,}) {
     return (
         <>
         <Image
@@ -10,6 +10,7 @@ export default function ImageHolder({src, alt="image", sizing={width:0, height:0
         width={sizing.width}
         height={sizing.height}
         priority
+        className={className}
         // sizes="(min-width: 740px) 674px, calc(95.48vw-18px)"
         >            
         </Image>
