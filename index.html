@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebRTC Voice Call</title>
+</head>
+<body>
+  <h1>Stutern-56 Voice Call</h1>
+
+  <video id="localVideo" autoplay muted></video>
+  <video id="remoteVideo" autoplay></video>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
+  <script>
+    const socket = io('http://localhost:3000', { transports: ['websocket'] });
+
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      .then((stream) => {
+        const localVideo = document.getElementById('localVideo');
+        localVideo.srcObject = stream;
+
+        const peerConnection = new RTCPeerConnection();
+
+        stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
+
+        peerConnection.createOffer()
+          .then((offer) => peerConnection.setLocalDescription(offer))
+          .then(() => {
+            socket.emit('offer', { offer: peerConnection.localDescription });
+          });
+
+        socket.on('offer', (data) => {
+          peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
+
+          peerConnection.createAnswer()
+            .then((answer) => peerConnection.setLocalDescription(answer))
+            .then(() => {
+              socket.emit('answer', { answer: peerConnection.localDescription });
+            });
+        });
+
+        socket.on('answer', (data) => {
+          peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
+        });
+
+        socket.on('ice-candidate', (data) => {
+          peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate));
+        });
+
+        peerConnection.onicecandidate = (event) => {
+          if (event.candidate) {
+            socket.emit('ice-candidate', { candidate: event.candidate });
+          }
+        };
+
+        peerConnection.ontrack = (event) => {
+          const remoteVideo = document.getElementById('remoteVideo');
+          remoteVideo.srcObject = event.streams[0];
+        };
+      })
+      .catch((error) => console.error('Error accessing microphone:', error));
+  </script>
+</body>
+</html>
