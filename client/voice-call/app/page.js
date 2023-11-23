@@ -40,7 +40,7 @@ export default function Home() {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col py[10px] px-[80px] gap-10 grow">
+        <div className="flex flex-col py-[10px] px-[80px] gap-10 grow">
         <div className="flex gap-2 self-end">
             <button className="bg-[#D0FBC6] p-2 rounded-md flex">
              <ImageHolder src={'/images/zap-green.svg'} sizing={{width: 15, height:15}}/>
