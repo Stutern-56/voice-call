@@ -40,7 +40,59 @@ export default function Home() {
             </ul>
           </div>
         </div>
-        <div className="bg-[yellow] grow"></div>
+        <div className="flex flex-col py[10px] px-[80px] gap-10 grow">
+        <div className="flex gap-2 self-end">
+            <button className="bg-[#D0FBC6] p-2 rounded-md flex">
+             <ImageHolder src={'/images/zap-green.svg'} sizing={{width: 15, height:15}}/>
+            </button>
+            <button className="bg-[#D0FBC6] p-2 flex gap-1 rounded-md items-center justify-center">
+              <p className="text-[#1cca00] text-[15px]">Upgrade</p>
+            <ImageHolder src={'/images/zap-green.svg'} sizing={{width: 15, height:15}}/>
+            </button>
+            <ImageHolder src={'/images/avatar-headshot.svg'} sizing={{ width: 40, height: 40}} />
+          </div>
+
+          {/*  switch div */}
+          <div className="flex flex-col gap-[84px]">
+            <div className="flex items-center justify-center flex-col py-[10px] px-[20px] w-full self-center gap-[16px]">
+              <button className="rounded-full w-[120px] h-[120px] items-center flex flex-col justify-center p-1 text-white text-lg font-semibold bg-[#1cca00] shadow-md">
+                
+                <ImageHolder src={'/images/switch.svg'} sizing={{width: 58, height:58}} className={'z-10'}/>
+                OFF
+              </button>
+              <p className="text-center">Click to <span className="text-[#1cca00]">activate</span> or <span className="text-[red]">de-activate</span> Linguabridge</p>
+            </div>
+            <div className="w-full py-[24px] px-[32px] flex flex-col gap-[24px] grow shadow-md rounded-md ">
+              <div className="flex gap-1 flex-col w-full">
+              <h2 className="text-gray-400">Language Preference</h2>
+              <p className="text-gray-300">Click the dropdown to edit your languages</p>
+              </div>
+              <div className="flex justify-between">
+                <div className=" flex flex-col gap-2">
+                <h3 className="text-gray-400">Translate from</h3>
+                <details className="cursor-pointer">
+                  <summary className="flex gap-2 ">
+                    <ImageHolder src={'/images/globe-check.svg'} sizing={{width: 15, height:15}}/> 
+                    <p className="text-gray-300">Auto detect</p>
+                  </summary>
+                  <article>Auto detect</article>
+                </details>
+                </div>
+                <div className=" flex flex-col gap-2">
+                <h3 className="text-gray-400">Translate to</h3>
+                <details className="cursor-pointer">
+                  <summary className="flex gap-2">
+                    <ImageHolder src={'/images/globe-check.svg'} sizing={{width: 15, height:15}}/> 
+                    <p className="text-gray-300">Auto detect</p>
+                  </summary>
+                  <article>Auto detect</article>
+                </details>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );
