@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'lato';
+  src: url('../public/fonts/Lato/Lato-Regular.ttf');
+}
+
+*{
+  box-sizing: border-box;
+  font-family: "lato";
+}
+
 :root {
   /* --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
